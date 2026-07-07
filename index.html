@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>特教與資源班教學資源入口網</title>
+    <title>丸子老師的教材入口網</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -12,13 +12,32 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            50: '#f5f7ff',
-                            100: '#ebf0ff',
-                            200: '#ced9ff',
-                            500: '#4f46e5', // 主色調 Indigo
-                            600: '#4338ca',
-                            700: '#3730a3',
+                        navy: {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            200: '#bcccdc',
+                            300: '#9fb3c8',
+                            400: '#829ab1',
+                            500: '#1b365d', // 經典海軍藍
+                            600: '#152c4f',
+                            700: '#0f1f3a',
+                            800: '#0a1426',
+                            900: '#050a13',
+                        },
+                        wine: {
+                            50: '#fff0f2',
+                            100: '#ffd6dc',
+                            200: '#ffb3bf',
+                            500: '#800020', // 精典酒紅
+                            600: '#6b001a',
+                            700: '#540014',
+                            800: '#3e000f',
+                            900: '#29000a',
+                        },
+                        darkBg: {
+                            900: '#0b0f17', // 超深海軍黑，符合暗黑主題
+                            800: '#121a26',
+                            700: '#1b2636'
                         }
                     }
                 }
@@ -42,46 +61,45 @@
             background: transparent;
         }
         .dark ::-webkit-scrollbar-track {
-            background: #1f2937;
+            background: #121a26;
         }
         ::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 9999px;
         }
         .dark ::-webkit-scrollbar-thumb {
-            background: #4b5563;
+            background: #2d3d52;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-gray-900 text-slate-800 dark:text-gray-100 min-h-full flex flex-col transition-colors duration-200">
+<body class="bg-slate-50 dark:bg-darkBg-900 text-slate-800 dark:text-gray-100 min-h-full flex flex-col transition-colors duration-200">
 
     <!-- 導覽列 -->
-    <header class="sticky top-0 z-30 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200 dark:border-gray-800 transition-colors duration-200">
+    <header class="sticky top-0 z-30 bg-white/90 dark:bg-darkBg-900/90 backdrop-blur-md border-b border-slate-200 dark:border-darkBg-800 transition-colors duration-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="p-2.5 bg-brand-500 text-white rounded-xl shadow-lg shadow-brand-500/20">
-                    <i data-lucide="compass" class="w-6 h-6"></i>
+                <div class="p-2.5 bg-navy-500 text-white rounded-xl shadow-md shadow-navy-500/20">
+                    <i data-lucide="compass" class="w-6 h-6 text-white"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold bg-gradient-to-r from-brand-600 to-indigo-500 dark:from-brand-200 dark:to-indigo-400 bg-clip-text text-transparent">
-                        教學資源個人入口網
+                    <h1 class="text-lg font-bold bg-gradient-to-r from-navy-700 via-navy-500 to-wine-500 dark:from-navy-200 dark:via-navy-300 dark:to-wine-300 bg-clip-text text-transparent">
+                        丸子老師的教材入口網
                     </h1>
-                    <p class="text-xs text-slate-500 dark:text-gray-400 hidden sm:block">專屬特教與資源班的高效資源導航</p>
                 </div>
             </div>
             
             <div class="flex items-center gap-2">
-                <!-- 新增資源按鈕 -->
-                <button onclick="openModal()" class="flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium text-white bg-brand-500 hover:bg-brand-600 rounded-xl transition shadow-md shadow-brand-500/10">
+                <!-- 新增資源按鈕 (改為酒紅色主調) -->
+                <button onclick="openModal()" class="flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium text-white bg-wine-500 hover:bg-wine-600 rounded-xl transition shadow-md shadow-wine-500/20">
                     <i data-lucide="plus" class="w-4 h-4"></i>
                     <span class="hidden sm:inline">新增資源</span>
                 </button>
                 
                 <!-- 深色模式切換 -->
-                <button id="theme-toggle" class="p-2 text-slate-500 hover:text-slate-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-slate-100 dark:hover:bg-gray-800 rounded-xl transition">
+                <button id="theme-toggle" class="p-2 text-slate-500 hover:text-navy-500 dark:text-gray-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-darkBg-800 rounded-xl transition">
                     <i id="theme-icon" data-lucide="sun" class="w-5 h-5"></i>
                 </button>
             </div>
@@ -91,24 +109,25 @@
     <!-- 主視覺區與快速統計 -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <section class="mb-8">
-            <div class="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-brand-700 to-purple-800 text-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-indigo-950/20">
-                <!-- 裝飾背景圈 -->
+            <!-- 移除原本的紫色漸層，改用沉穩的海軍藍搭配酒紅裝飾 -->
+            <div class="relative overflow-hidden bg-gradient-to-br from-navy-900 via-navy-800 to-wine-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border-l-8 border-wine-500">
+                <!-- 裝飾背景圈 (改為白色與酒紅微光) -->
                 <div class="absolute right-0 top-0 w-80 h-80 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
-                <div class="absolute left-1/3 bottom-0 w-60 h-60 bg-brand-500/10 rounded-full blur-2xl -mb-10"></div>
+                <div class="absolute left-1/3 bottom-0 w-60 h-60 bg-wine-500/10 rounded-full blur-2xl -mb-10"></div>
                 
                 <div class="relative z-10 max-w-2xl">
-                    <span class="px-3 py-1 text-xs font-semibold bg-white/20 backdrop-blur-md rounded-full">歡迎使用本教學系統</span>
+                    <span class="px-3 py-1 text-xs font-semibold bg-white/10 border border-white/20 backdrop-blur-md rounded-full text-wine-100">歡迎使用本教學入口</span>
                     <h2 class="text-2xl sm:text-4xl font-bold mt-3 tracking-tight">打造結構化的學習導引，讓特教教學更直覺</h2>
-                    <p class="mt-2 text-indigo-100 text-sm sm:text-base">
-                        整合了「智慧障礙數學」、「AI一鍵抓注釋」與「國一國文資源班」所需之課程教材，一鍵複製與直達目標。
+                    <p class="mt-2 text-navy-100 text-sm sm:text-base">
+                        整合資源班學科&特需課程教材，一鍵分享教材網址。
                     </p>
                 </div>
             </div>
 
-            <!-- 數據統計卡片 -->
+            <!-- 數據統計卡片 (統一為海軍藍與酒紅色系統) -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-                <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-slate-100 dark:border-gray-800/80 flex items-center gap-4 transition shadow-sm hover:shadow-md">
-                    <div class="p-3 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-xl">
+                <div class="bg-white dark:bg-darkBg-800 p-4 rounded-2xl border border-slate-100 dark:border-darkBg-700 flex items-center gap-4 transition shadow-sm hover:shadow-md">
+                    <div class="p-3 bg-navy-500/10 text-navy-500 dark:text-navy-300 rounded-xl">
                         <i data-lucide="book-open" class="w-6 h-6"></i>
                     </div>
                     <div>
@@ -116,31 +135,31 @@
                         <div id="stat-total" class="text-xl font-bold text-slate-800 dark:text-white">0</div>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-slate-100 dark:border-gray-800/80 flex items-center gap-4 transition shadow-sm hover:shadow-md">
-                    <div class="p-3 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl">
+                <div class="bg-white dark:bg-darkBg-800 p-4 rounded-2xl border border-slate-100 dark:border-darkBg-700 flex items-center gap-4 transition shadow-sm hover:shadow-md">
+                    <div class="p-3 bg-navy-500/10 text-navy-600 dark:text-navy-300 rounded-xl">
                         <i data-lucide="binary" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <div class="text-xs text-slate-400">數學與生活</div>
-                        <div id="stat-math" class="text-xl font-bold text-emerald-600 dark:text-emerald-400">0</div>
+                        <div class="text-xs text-slate-400">特教數學與生活</div>
+                        <div id="stat-math" class="text-xl font-bold text-navy-600 dark:text-navy-300">0</div>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-slate-100 dark:border-gray-800/80 flex items-center gap-4 transition shadow-sm hover:shadow-md">
-                    <div class="p-3 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-xl">
+                <div class="bg-white dark:bg-darkBg-800 p-4 rounded-2xl border border-slate-100 dark:border-darkBg-700 flex items-center gap-4 transition shadow-sm hover:shadow-md">
+                    <div class="p-3 bg-wine-500/10 text-wine-600 dark:text-wine-400 rounded-xl">
                         <i data-lucide="languages" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <div class="text-xs text-slate-400">國一國文資源</div>
-                        <div id="stat-chinese" class="text-xl font-bold text-amber-600 dark:text-amber-400">0</div>
+                        <div class="text-xs text-slate-400">資源國文課程</div>
+                        <div id="stat-chinese" class="text-xl font-bold text-wine-600 dark:text-wine-400">0</div>
                     </div>
                 </div>
-                <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-slate-100 dark:border-gray-800/80 flex items-center gap-4 transition shadow-sm hover:shadow-md">
-                    <div class="p-3 bg-purple-500/10 text-purple-600 dark:text-purple-400 rounded-xl">
+                <div class="bg-white dark:bg-darkBg-800 p-4 rounded-2xl border border-slate-100 dark:border-darkBg-700 flex items-center gap-4 transition shadow-sm hover:shadow-md">
+                    <div class="p-3 bg-slate-500/10 text-slate-600 dark:text-slate-300 rounded-xl">
                         <i data-lucide="cpu" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <div class="text-xs text-slate-400">AI 與社會技巧</div>
-                        <div id="stat-ai" class="text-xl font-bold text-purple-600 dark:text-purple-400">0</div>
+                        <div class="text-xs text-slate-400">AI 與社技</div>
+                        <div id="stat-ai" class="text-xl font-bold text-slate-600 dark:text-slate-300">0</div>
                     </div>
                 </div>
             </div>
@@ -148,38 +167,38 @@
 
         <!-- 控制與搜尋區 -->
         <section class="mb-8">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                 <!-- 搜尋框 -->
                 <div class="relative flex-1 max-w-md">
                     <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
-                    <input type="text" id="search-input" onkeyup="filterResources()" placeholder="搜尋關鍵字（例如：等比、近體詩、乘法）..." 
-                        class="w-full pl-11 pr-4 py-2.5 bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-brand-400 text-sm shadow-sm transition">
+                    <input type="text" id="search-input" onkeyup="filterResources()" placeholder="搜尋關鍵字（例如：等比、詩、乘法）..." 
+                        class="w-full pl-11 pr-4 py-2.5 bg-white dark:bg-darkBg-800 border border-slate-200 dark:border-darkBg-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-navy-500 dark:focus:ring-navy-400 text-sm shadow-sm transition text-slate-800 dark:text-white">
                 </div>
 
-                <!-- 分類過濾 Tab -->
-                <div class="flex flex-wrap items-center gap-2 overflow-x-auto pb-1 md:pb-0">
-                    <button onclick="setCategoryFilter('all')" data-category-btn="all" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-brand-500 text-white shadow-sm shadow-brand-500/10">
-                        全部資源
+                <!-- 分類過濾 Tab (海軍藍、酒紅主色) -->
+                <div class="flex flex-wrap items-center gap-2 overflow-x-auto pb-1 lg:pb-0">
+                    <button onclick="setCategoryFilter('all')" data-category-btn="all" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-navy-500 text-white shadow-sm shadow-navy-500/10">
+                        所有資源
                     </button>
-                    <button onclick="setCategoryFilter('math')" data-category-btn="math" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-gray-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-gray-700/80 hover:bg-slate-50 dark:hover:bg-gray-700">
-                        數學與生活管理
+                    <button onclick="setCategoryFilter('math')" data-category-btn="math" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-darkBg-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-darkBg-700 hover:bg-slate-50 dark:hover:bg-darkBg-700">
+                        智能障礙數學與生活管理
                     </button>
-                    <button onclick="setCategoryFilter('chinese')" data-category-btn="chinese" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-gray-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-gray-700/80 hover:bg-slate-50 dark:hover:bg-gray-700">
+                    <button onclick="setCategoryFilter('chinese')" data-category-btn="chinese" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-darkBg-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-darkBg-700 hover:bg-slate-50 dark:hover:bg-darkBg-700">
                         資源班國一國文
                     </button>
-                    <button onclick="setCategoryFilter('ai')" data-category-btn="ai" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-gray-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-gray-700/80 hover:bg-slate-50 dark:hover:bg-gray-700">
-                        AI模板與社會技巧
+                    <button onclick="setCategoryFilter('ai')" data-category-btn="ai" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-darkBg-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-darkBg-700 hover:bg-slate-50 dark:hover:bg-darkBg-700">
+                        AI模板與社技
                     </button>
-                    <button onclick="setCategoryFilter('starred')" data-category-btn="starred" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-gray-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-gray-700/80 hover:bg-slate-50 dark:hover:bg-gray-700 flex items-center gap-1">
-                        <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i> 我的收藏
+                    <button onclick="setCategoryFilter('starred')" data-category-btn="starred" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-darkBg-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-darkBg-700 hover:bg-slate-50 dark:hover:bg-darkBg-700 flex items-center gap-1">
+                        <i data-lucide="star" class="w-4 h-4 text-wine-500 fill-wine-500"></i> 我的收藏
                     </button>
                 </div>
             </div>
         </section>
 
         <!-- 資源列表區 -->
-        <div id="no-results" class="hidden flex-col items-center justify-center py-16 bg-white dark:bg-gray-800 rounded-3xl border border-dashed border-slate-200 dark:border-gray-700 mb-8">
-            <div class="p-4 bg-slate-100 dark:bg-gray-700 rounded-full text-slate-400 mb-4">
+        <div id="no-results" class="hidden flex-col items-center justify-center py-16 bg-white dark:bg-darkBg-800 rounded-3xl border border-dashed border-slate-200 dark:border-darkBg-700 mb-8">
+            <div class="p-4 bg-slate-100 dark:bg-darkBg-700 rounded-full text-slate-400 mb-4">
                 <i data-lucide="search-slash" class="w-10 h-10"></i>
             </div>
             <h3 class="text-lg font-bold text-slate-700 dark:text-slate-200">未找到相符的教學資源</h3>
@@ -192,38 +211,38 @@
     </main>
 
     <!-- 新增資源的彈出視窗 -->
-    <div id="add-modal" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-2xl shadow-2xl border border-slate-100 dark:border-gray-700 transform transition-all scale-95 opacity-0 duration-200" id="modal-container">
-            <div class="flex items-center justify-between p-5 border-b border-slate-100 dark:border-gray-700">
+    <div id="add-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-darkBg-800 w-full max-w-md rounded-2xl shadow-2xl border border-slate-100 dark:border-darkBg-700 transform transition-all scale-95 opacity-0 duration-200" id="modal-container">
+            <div class="flex items-center justify-between p-5 border-b border-slate-100 dark:border-darkBg-700">
                 <h3 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
-                    <i data-lucide="folder-plus" class="w-5 h-5 text-brand-500"></i> 新增教學資源
+                    <i data-lucide="folder-plus" class="w-5 h-5 text-wine-500"></i> 新增教學資源
                 </h3>
-                <button onclick="closeModal()" class="p-1 hover:bg-slate-100 dark:hover:bg-gray-700 rounded-lg text-slate-400">
+                <button onclick="closeModal()" class="p-1 hover:bg-slate-100 dark:hover:bg-darkBg-700 rounded-lg text-slate-400">
                     <i data-lucide="x" class="w-5 h-5"></i>
                 </button>
             </div>
             <form id="resource-form" onsubmit="saveNewResource(event)" class="p-5 space-y-4">
                 <div>
                     <label class="block text-xs font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">資源名稱</label>
-                    <input type="text" id="res-title" required placeholder="如：等比數列放大" class="w-full px-3 py-2 bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none dark:text-white text-sm">
+                    <input type="text" id="res-title" required placeholder="如：等比數列放大" class="w-full px-3 py-2 bg-slate-50 dark:bg-darkBg-900 border border-slate-200 dark:border-darkBg-700 rounded-xl focus:ring-2 focus:ring-navy-500 focus:outline-none dark:text-white text-sm">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">網頁網址 (URL)</label>
-                    <input type="url" id="res-url" required placeholder="https://gemini.google.com/..." class="w-full px-3 py-2 bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none dark:text-white text-sm">
+                    <input type="url" id="res-url" required placeholder="https://gemini.google.com/..." class="w-full px-3 py-2 bg-slate-50 dark:bg-darkBg-900 border border-slate-200 dark:border-darkBg-700 rounded-xl focus:ring-2 focus:ring-navy-500 focus:outline-none dark:text-white text-sm">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">資源分類</label>
-                    <select id="res-category" required class="w-full px-3 py-2 bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none dark:text-white text-sm">
+                    <select id="res-category" required class="w-full px-3 py-2 bg-slate-50 dark:bg-darkBg-900 border border-slate-200 dark:border-darkBg-700 rounded-xl focus:ring-2 focus:ring-navy-500 focus:outline-none dark:text-white text-sm">
                         <option value="math">智能障礙數學與生活管理</option>
                         <option value="chinese">資源班國一國文</option>
-                        <option value="ai">AI模板與社會技巧</option>
+                        <option value="ai">AI與社會技巧</option>
                     </select>
                 </div>
-                <div class="flex gap-3 pt-4 border-t border-slate-100 dark:border-gray-700">
-                    <button type="button" onclick="closeModal()" class="flex-1 py-2 text-sm font-medium text-slate-500 dark:text-gray-300 bg-slate-100 dark:bg-gray-700 hover:bg-slate-200 dark:hover:bg-gray-600 rounded-xl transition">
+                <div class="flex gap-3 pt-4 border-t border-slate-100 dark:border-darkBg-700">
+                    <button type="button" onclick="closeModal()" class="flex-1 py-2 text-sm font-medium text-slate-500 dark:text-gray-300 bg-slate-100 dark:bg-darkBg-700 hover:bg-slate-200 dark:hover:bg-darkBg-600 rounded-xl transition">
                         取消
                     </button>
-                    <button type="submit" class="flex-1 py-2 text-sm font-medium text-white bg-brand-500 hover:bg-brand-600 rounded-xl shadow-lg shadow-brand-500/10 transition">
+                    <button type="submit" class="flex-1 py-2 text-sm font-medium text-white bg-wine-500 hover:bg-wine-600 rounded-xl shadow-lg shadow-wine-500/10 transition">
                         確認新增
                     </button>
                 </div>
@@ -235,18 +254,18 @@
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
     <!-- 頁尾 -->
-    <footer class="bg-white dark:bg-gray-950 border-t border-slate-100 dark:border-gray-900 py-6 mt-12 transition-colors duration-200">
+    <footer class="bg-white dark:bg-darkBg-900 border-t border-slate-200 dark:border-darkBg-800 py-6 mt-12 transition-colors duration-200">
         <div class="max-w-7xl mx-auto px-4 text-center">
             <p class="text-xs text-slate-400 dark:text-gray-500">
-                特教與資源班教學資源管理門戶 © 2026. 內建本機儲存空間，重整網頁不迷路。
+                丸子老師的教材入口網 © 2026. 內建本機儲存空間，重整網頁不迷路。
             </p>
         </div>
     </footer>
 
     <script>
-        // 初始化原始數據
+        // 初始化原始數據 (依照您的指示與 "AI連結整理.docx" 內容導入)
         const defaultResources = [
-            // 數學與生活管理
+            // 數學與生活管理 (海軍藍標籤主題)
             { id: "m1", title: "小數乘法應用-超商打折", url: "https://gemini.google.com/share/bc91a99bf4e1", category: "math", icon: "shopping-bag" },
             { id: "m2", title: "小數乘法", url: "https://gemini.google.com/share/221f07f20c2c", category: "math", icon: "calculator" },
             { id: "m3", title: "等比數列放大", url: "https://gemini.google.com/share/78bacdffb8ff", category: "math", icon: "zoom-in" },
@@ -262,11 +281,11 @@
             { id: "m13", title: "分數圓餅圖", url: "https://drive.google.com/file/d/1s6BKzxiOpkx0vv8DnIpXPQ920Hb_2WeF/view?usp=classroom_web&authuser=3", category: "math", icon: "pie-chart" },
             { id: "m14", title: "三角形的兩邊長和大於第三邊", url: "https://gemini.google.com/share/98f3426e8454?authuser=3", category: "math", icon: "triangle" },
 
-            // AI模板與社會技巧
+            // AI模板與社會技巧 (極簡黑/灰標籤主題)
             { id: "ai1", title: "AI一鍵抓注釋", url: "https://share.gemini.google/9ha7Z6TYwWGW", category: "ai", icon: "cpu" },
             { id: "ai2", title: "社會技巧互動式網頁", url: "https://gemini.google.com/gem/1I-PwuefU-B4VRsuF7OwUucV07IdVyOru?usp=sharing", category: "ai", icon: "users" },
 
-            // 資源班國一國文
+            // 資源班國一國文 (酒紅標籤主題)
             { id: "c1", title: "設問轉化修辭", url: "https://gemini.google.com/share/763cf45ba72a?authuser=3", category: "chinese", icon: "pen-tool" },
             { id: "c2", title: "論語問答", url: "https://gemini.google.com/share/76833a8906bb?authuser=3", category: "chinese", icon: "book-open" },
             { id: "c3", title: "濫竽充數課堂練習", url: "https://drive.google.com/file/d/1nkvhGiBvwerbrF1ESDSQwikdys6C-a7o/view?usp=classroom_web&authuser=3", category: "chinese", icon: "clipboard-list" },
@@ -316,11 +335,11 @@
             document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
         }
 
-        // 分類對應中文名稱與顏色樣式
+        // 分類對應中文名稱與顏色樣式 (改為海軍藍、酒紅與極簡灰主題)
         const categoryConfig = {
-            math: { label: "數學與生活管理", color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200/50" },
-            chinese: { label: "資源班國一國文", color: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200/50" },
-            ai: { label: "AI與社會技巧", color: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200/50" }
+            math: { label: "智能障礙數學與生活管理", color: "bg-navy-50 text-navy-700 dark:bg-navy-950/40 dark:text-navy-300 border-navy-200/50" },
+            chinese: { label: "資源班國一國文", color: "bg-wine-50 text-wine-700 dark:bg-wine-950/40 dark:text-wine-300 border-wine-200/50" },
+            ai: { label: "AI與社會技巧", color: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300/50" }
         };
 
         // 偵測是否為 Google Drive 或是 Gemini 來建立來源標籤
@@ -328,9 +347,9 @@
             if (url.includes('drive.google.com')) {
                 return { label: 'Google Drive', style: 'bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/50' };
             } else if (url.includes('gemini.google.com') || url.includes('share.gemini.google')) {
-                return { label: 'Gemini AI', style: 'bg-indigo-50 text-indigo-600 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-900/50' };
+                return { label: 'Gemini AI', style: 'bg-navy-50 text-navy-600 border-navy-200 dark:bg-navy-950/40 dark:text-navy-300 dark:border-navy-900/50' };
             }
-            return { label: '教學外部連結', style: 'bg-slate-50 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700' };
+            return { label: '教學外部連結', style: 'bg-slate-50 text-slate-600 border-slate-200 dark:bg-darkBg-800 dark:text-slate-300 dark:border-darkBg-700' };
         }
 
         // 切換深色模式
@@ -362,14 +381,14 @@
         function setCategoryFilter(category) {
             currentFilter = category;
             
-            // 更新 Button 狀態樣式
+            // 更新 Button 狀態樣式 (使用海軍藍作為主導活動色，酒紅當特色)
             const buttons = document.querySelectorAll('[data-category-btn]');
             buttons.forEach(btn => {
                 const btnType = btn.getAttribute('data-category-btn');
                 if (btnType === category) {
-                    btn.className = "category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-brand-500 text-white shadow-sm shadow-brand-500/10 flex items-center gap-1";
+                    btn.className = "category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-navy-500 text-white shadow-sm shadow-navy-500/10 flex items-center gap-1";
                 } else {
-                    btn.className = "category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-gray-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-gray-700/80 hover:bg-slate-50 dark:hover:bg-gray-700 flex items-center gap-1";
+                    btn.className = "category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-darkBg-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-darkBg-700 hover:bg-slate-50 dark:hover:bg-darkBg-700 flex items-center gap-1";
                 }
             });
 
@@ -397,6 +416,7 @@
 
         // 刪除連結功能
         function deleteResource(id) {
+            // 使用自訂 UI 或者最安全的瀏覽器原生 confirm，但介面要清爽
             if (confirm("您確定要刪除此教學資源連結嗎？")) {
                 resources = resources.filter(r => r.id !== id);
                 starred = starred.filter(sid => sid !== id);
@@ -463,13 +483,14 @@
             // 跑迴圈產生卡片 HTML
             filtered.forEach(res => {
                 const isStarred = starred.includes(res.id);
-                const starIconClass = isStarred ? "text-amber-500 fill-amber-500" : "text-slate-400 dark:text-gray-500 hover:text-amber-500";
+                // 收藏星號使用酒紅色或灰色
+                const starIconClass = isStarred ? "text-wine-500 fill-wine-500" : "text-slate-400 dark:text-gray-500 hover:text-wine-500";
                 const catInfo = categoryConfig[res.category] || { label: "其他資源", color: "bg-slate-100 text-slate-600 border-slate-200" };
                 const platInfo = getPlatformTag(res.url);
                 const cardIcon = res.icon || 'external-link';
 
                 const card = document.createElement('div');
-                card.className = "group relative bg-white dark:bg-gray-800 rounded-2xl border border-slate-100 dark:border-gray-800/80 p-5 shadow-sm hover:shadow-xl hover:border-brand-100 dark:hover:border-gray-700/80 transition-all duration-300 flex flex-col justify-between";
+                card.className = "group relative bg-white dark:bg-darkBg-800 rounded-2xl border border-slate-100 dark:border-darkBg-700/80 p-5 shadow-sm hover:shadow-xl hover:border-navy-200 dark:hover:border-navy-900 transition-all duration-300 flex flex-col justify-between";
                 
                 card.innerHTML = `
                     <div>
@@ -479,7 +500,7 @@
                                 ${catInfo.label}
                             </span>
                             <div class="flex items-center gap-1.5">
-                                <button onclick="toggleStar('${res.id}')" class="p-1 hover:bg-slate-100 dark:hover:bg-gray-700 rounded-lg transition" title="收藏資源">
+                                <button onclick="toggleStar('${res.id}')" class="p-1 hover:bg-slate-100 dark:hover:bg-darkBg-700 rounded-lg transition" title="收藏資源">
                                     <i data-lucide="star" class="w-5 h-5 ${starIconClass}"></i>
                                 </button>
                                 <button onclick="deleteResource('${res.id}')" class="p-1 hover:bg-red-50 dark:hover:bg-red-950/30 text-slate-400 hover:text-red-500 rounded-lg transition" title="刪除">
@@ -490,11 +511,12 @@
 
                         <!-- 資源主體 -->
                         <div class="flex items-start gap-3 mt-2">
-                            <div class="p-2.5 bg-slate-50 dark:bg-gray-900 text-slate-600 dark:text-gray-300 rounded-xl border border-slate-100 dark:border-gray-700 group-hover:bg-brand-500 group-hover:text-white group-hover:border-transparent transition-colors duration-300">
+                            <!-- 圖示背景：滑鼠懸浮時從淺色切換為海軍藍 -->
+                            <div class="p-2.5 bg-slate-50 dark:bg-darkBg-900 text-slate-600 dark:text-slate-300 rounded-xl border border-slate-100 dark:border-darkBg-700 group-hover:bg-navy-500 group-hover:text-white group-hover:border-transparent transition-colors duration-300">
                                 <i data-lucide="${cardIcon}" class="w-5 h-5"></i>
                             </div>
                             <div class="flex-1">
-                                <h4 class="text-base font-bold text-slate-800 dark:text-white line-clamp-2 leading-snug group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors">
+                                <h4 class="text-base font-bold text-slate-800 dark:text-white line-clamp-2 leading-snug group-hover:text-navy-600 dark:group-hover:text-navy-300 transition-colors">
                                     ${res.title}
                                 </h4>
                                 <div class="flex items-center gap-1.5 mt-2">
@@ -506,12 +528,12 @@
                         </div>
                     </div>
 
-                    <!-- 動作按鈕 -->
-                    <div class="grid grid-cols-2 gap-2 mt-6 pt-4 border-t border-slate-50 dark:border-gray-700/50">
-                        <button onclick="copyToClipboard('${res.url}')" class="flex items-center justify-center gap-1 px-3 py-2 text-xs font-medium text-slate-600 dark:text-gray-300 bg-slate-50 hover:bg-slate-100 dark:bg-gray-700/40 dark:hover:bg-gray-700 border border-slate-200 dark:border-gray-700 rounded-xl transition">
+                    <!-- 動作按鈕：左側灰色/海軍藍邊框，右側酒紅主色 -->
+                    <div class="grid grid-cols-2 gap-2 mt-6 pt-4 border-t border-slate-100 dark:border-darkBg-700/50">
+                        <button onclick="copyToClipboard('${res.url}')" class="flex items-center justify-center gap-1 px-3 py-2 text-xs font-medium text-slate-600 dark:text-gray-300 bg-slate-50 hover:bg-slate-100 dark:bg-darkBg-700/40 dark:hover:bg-darkBg-700 border border-slate-200 dark:border-darkBg-700 rounded-xl transition">
                             <i data-lucide="copy" class="w-3.5 h-3.5"></i> 複製教材連結
                         </button>
-                        <a href="${res.url}" target="_blank" class="flex items-center justify-center gap-1 px-3 py-2 text-xs font-medium text-white bg-brand-500 hover:bg-brand-600 rounded-xl shadow-sm transition">
+                        <a href="${res.url}" target="_blank" class="flex items-center justify-center gap-1 px-3 py-2 text-xs font-medium text-white bg-wine-500 hover:bg-wine-600 rounded-xl shadow-sm transition">
                             開啟學習 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
                         </a>
                     </div>
@@ -576,17 +598,18 @@
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             
+            // 提示條設計符合黑白海軍藍酒紅主題
             let bgClass = "bg-slate-900 text-white dark:bg-white dark:text-slate-900";
             let iconName = "check-circle-2";
-            let iconColor = "text-emerald-400";
+            let iconColor = "text-wine-500 dark:text-wine-600"; // 成功提示改為酒紅
 
             if (type === 'info') {
                 iconName = "info";
-                iconColor = "text-sky-400";
+                iconColor = "text-navy-400";
             } else if (type === 'error') {
                 iconName = "alert-circle";
                 iconColor = "text-red-400";
-                bgClass = "bg-red-600 text-white";
+                bgClass = "bg-red-900 text-white";
             }
 
             toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl shadow-xl transition-all duration-300 transform translate-y-2 opacity-0 text-sm max-w-sm pointer-events-auto ${bgClass}`;
