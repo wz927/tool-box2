@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>丸子老師的教材入口網</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f7ff',
+                            100: '#ebf0ff',
+                            200: '#ced9ff',
+                            500: '#4f46e5', // 主色調 Indigo
+                            600: '#4338ca',
+                            700: '#3730a3',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Inter & Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+        }
+        /* 美化滾動條 */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-gray-900 text-slate-800 dark:text-gray-100 min-h-full flex flex-col transition-colors duration-200">
+
+    <!-- 導覽列 -->
+    <header class="sticky top-0 z-30 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-slate-200 dark:border-gray-800 transition-colors duration-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 bg-brand-500 text-white rounded-xl shadow-lg shadow-brand-500/20">
+                    <i data-lucide="compass" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold bg-gradient-to-r from-brand-600 to-indigo-500 dark:from-brand-200 dark:to-indigo-400 bg-clip-text text-transparent">
+                        丸子老師的教材入口網
+                    </h1>
+                    <p class="text-xs text-slate-500 dark:text-gray-400 hidden sm:block">專屬特教與資源班的高效資源導航</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <!-- 新增資源按鈕 -->
+                <button onclick="openModal()" class="flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium text-white bg-brand-500 hover:bg-brand-600 rounded-xl transition shadow-md shadow-brand-500/10">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">新增資源</span>
+                </button>
+                
+                <!-- 深色模式切換 -->
+                <button id="theme-toggle" class="p-2 text-slate-500 hover:text-slate-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-slate-100 dark:hover:bg-gray-800 rounded-xl transition">
+                    <i id="theme-icon" data-lucide="sun" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主視覺區與快速統計 -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <section class="mb-8">
+            <div class="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-brand-700 to-purple-800 text-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-indigo-950/20">
+                <!-- 裝飾背景圈 -->
+                <div class="absolute right-0 top-0 w-80 h-80 bg-white/5 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                <div class="absolute left-1/3 bottom-0 w-60 h-60 bg-brand-500/10 rounded-full blur-2xl -mb-10"></div>
+                
+                <div class="relative z-10 max-w-2xl">
+                    <span class="px-3 py-1 text-xs font-semibold bg-white/20 backdrop-blur-md rounded-full">歡迎使用本教學系統</span>
+                    <h2 class="text-2xl sm:text-4xl font-bold mt-3 tracking-tight">打造結構化的學習導引，讓特教教學更直覺</h2>
+                    <p class="mt-2 text-indigo-100 text-sm sm:text-base">
+                        整合了「智慧障礙數學」、「AI一鍵抓注釋」與「國一國文資源班」所需之課程教材，一鍵複製與直達目標。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 數據統計卡片 -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-slate-100 dark:border-gray-800/80 flex items-center gap-4 transition shadow-sm hover:shadow-md">
+                    <div class="p-3 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-xl">
+                        <i data-lucide="book-open" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400">總資源數</div>
+                        <div id="stat-total" class="text-xl font-bold text-slate-800 dark:text-white">0</div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-slate-100 dark:border-gray-800/80 flex items-center gap-4 transition shadow-sm hover:shadow-md">
+                    <div class="p-3 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl">
+                        <i data-lucide="binary" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400">數學與生活</div>
+                        <div id="stat-math" class="text-xl font-bold text-emerald-600 dark:text-emerald-400">0</div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-slate-100 dark:border-gray-800/80 flex items-center gap-4 transition shadow-sm hover:shadow-md">
+                    <div class="p-3 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-xl">
+                        <i data-lucide="languages" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400">國一國文資源</div>
+                        <div id="stat-chinese" class="text-xl font-bold text-amber-600 dark:text-amber-400">0</div>
+                    </div>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl border border-slate-100 dark:border-gray-800/80 flex items-center gap-4 transition shadow-sm hover:shadow-md">
+                    <div class="p-3 bg-purple-500/10 text-purple-600 dark:text-purple-400 rounded-xl">
+                        <i data-lucide="cpu" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400">AI 與社會技巧</div>
+                        <div id="stat-ai" class="text-xl font-bold text-purple-600 dark:text-purple-400">0</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 控制與搜尋區 -->
+        <section class="mb-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <!-- 搜尋框 -->
+                <div class="relative flex-1 max-w-md">
+                    <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400"></i>
+                    <input type="text" id="search-input" onkeyup="filterResources()" placeholder="搜尋關鍵字（例如：等比、近體詩、乘法）..." 
+                        class="w-full pl-11 pr-4 py-2.5 bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 dark:focus:ring-brand-400 text-sm shadow-sm transition">
+                </div>
+
+                <!-- 分類過濾 Tab -->
+                <div class="flex flex-wrap items-center gap-2 overflow-x-auto pb-1 md:pb-0">
+                    <button onclick="setCategoryFilter('all')" data-category-btn="all" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-brand-500 text-white shadow-sm shadow-brand-500/10">
+                        全部資源
+                    </button>
+                    <button onclick="setCategoryFilter('math')" data-category-btn="math" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-gray-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-gray-700/80 hover:bg-slate-50 dark:hover:bg-gray-700">
+                        數學與生活管理
+                    </button>
+                    <button onclick="setCategoryFilter('chinese')" data-category-btn="chinese" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-gray-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-gray-700/80 hover:bg-slate-50 dark:hover:bg-gray-700">
+                        資源班國一國文
+                    </button>
+                    <button onclick="setCategoryFilter('ai')" data-category-btn="ai" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-gray-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-gray-700/80 hover:bg-slate-50 dark:hover:bg-gray-700">
+                        AI模板與社會技巧
+                    </button>
+                    <button onclick="setCategoryFilter('starred')" data-category-btn="starred" class="category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-gray-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-gray-700/80 hover:bg-slate-50 dark:hover:bg-gray-700 flex items-center gap-1">
+                        <i data-lucide="star" class="w-4 h-4 text-amber-500 fill-amber-500"></i> 我的收藏
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 資源列表區 -->
+        <div id="no-results" class="hidden flex-col items-center justify-center py-16 bg-white dark:bg-gray-800 rounded-3xl border border-dashed border-slate-200 dark:border-gray-700 mb-8">
+            <div class="p-4 bg-slate-100 dark:bg-gray-700 rounded-full text-slate-400 mb-4">
+                <i data-lucide="search-slash" class="w-10 h-10"></i>
+            </div>
+            <h3 class="text-lg font-bold text-slate-700 dark:text-slate-200">未找到相符的教學資源</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">請嘗試使用其他關鍵字或更改分類篩選條件</p>
+        </div>
+
+        <div id="resources-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 卡片由 JS 動態生成 -->
+        </div>
+    </main>
+
+    <!-- 新增資源的彈出視窗 -->
+    <div id="add-modal" class="fixed inset-0 z-50 hidden bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 w-full max-w-md rounded-2xl shadow-2xl border border-slate-100 dark:border-gray-700 transform transition-all scale-95 opacity-0 duration-200" id="modal-container">
+            <div class="flex items-center justify-between p-5 border-b border-slate-100 dark:border-gray-700">
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white flex items-center gap-2">
+                    <i data-lucide="folder-plus" class="w-5 h-5 text-brand-500"></i> 新增教學資源
+                </h3>
+                <button onclick="closeModal()" class="p-1 hover:bg-slate-100 dark:hover:bg-gray-700 rounded-lg text-slate-400">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <form id="resource-form" onsubmit="saveNewResource(event)" class="p-5 space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">資源名稱</label>
+                    <input type="text" id="res-title" required placeholder="如：等比數列放大" class="w-full px-3 py-2 bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none dark:text-white text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">網頁網址 (URL)</label>
+                    <input type="url" id="res-url" required placeholder="https://gemini.google.com/..." class="w-full px-3 py-2 bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none dark:text-white text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-gray-400 uppercase tracking-wider mb-1.5">資源分類</label>
+                    <select id="res-category" required class="w-full px-3 py-2 bg-slate-50 dark:bg-gray-900 border border-slate-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-brand-500 focus:outline-none dark:text-white text-sm">
+                        <option value="math">智能障礙數學與生活管理</option>
+                        <option value="chinese">資源班國一國文</option>
+                        <option value="ai">AI模板與社會技巧</option>
+                    </select>
+                </div>
+                <div class="flex gap-3 pt-4 border-t border-slate-100 dark:border-gray-700">
+                    <button type="button" onclick="closeModal()" class="flex-1 py-2 text-sm font-medium text-slate-500 dark:text-gray-300 bg-slate-100 dark:bg-gray-700 hover:bg-slate-200 dark:hover:bg-gray-600 rounded-xl transition">
+                        取消
+                    </button>
+                    <button type="submit" class="flex-1 py-2 text-sm font-medium text-white bg-brand-500 hover:bg-brand-600 rounded-xl shadow-lg shadow-brand-500/10 transition">
+                        確認新增
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast 通知器 -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- 頁尾 -->
+    <footer class="bg-white dark:bg-gray-950 border-t border-slate-100 dark:border-gray-900 py-6 mt-12 transition-colors duration-200">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-xs text-slate-400 dark:text-gray-500">
+                特教與資源班教學資源管理門戶 © 2026. 內建本機儲存空間，重整網頁不迷路。
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // 初始化原始數據
+        const defaultResources = [
+            // 數學與生活管理
+            { id: "m1", title: "小數乘法應用-超商打折", url: "https://gemini.google.com/share/bc91a99bf4e1", category: "math", icon: "shopping-bag" },
+            { id: "m2", title: "小數乘法", url: "https://gemini.google.com/share/221f07f20c2c", category: "math", icon: "calculator" },
+            { id: "m3", title: "等比數列放大", url: "https://gemini.google.com/share/78bacdffb8ff", category: "math", icon: "zoom-in" },
+            { id: "m4", title: "等比數列應用-生活情境", url: "https://gemini.google.com/share/fb4f875d929a", category: "math", icon: "sparkles" },
+            { id: "m5", title: "等比數列縮小", url: "https://gemini.google.com/share/dcc18c2738e8", category: "math", icon: "zoom-out" },
+            { id: "m6", title: "生活管理-身分證", url: "https://gemini.google.com/share/dd010e1a5117", category: "math", icon: "contact-2" },
+            { id: "m7", title: "數列1", url: "https://gemini.google.com/share/24489491169f", category: "math", icon: "trending-up" },
+            { id: "m8", title: "數列2", url: "https://gemini.google.com/share/e432d2cefb8a", category: "math", icon: "trending-up" },
+            { id: "m9", title: "數列1-2複習", url: "https://gemini.google.com/share/6645bf46f5dc", category: "math", icon: "award" },
+            { id: "m10", title: "營養標示2", url: "https://gemini.google.com/share/76eb0b694111?authuser=3", category: "math", icon: "apple" },
+            { id: "m11", title: "營養標示1", url: "https://gemini.google.com/share/d2392d591b7f?authuser=3", category: "math", icon: "apple" },
+            { id: "m12", title: "比例", url: "https://gemini.google.com/share/d350d73be426?authuser=3", category: "math", icon: "percent" },
+            { id: "m13", title: "分數圓餅圖", url: "https://drive.google.com/file/d/1s6BKzxiOpkx0vv8DnIpXPQ920Hb_2WeF/view?usp=classroom_web&authuser=3", category: "math", icon: "pie-chart" },
+            { id: "m14", title: "三角形的兩邊長和大於第三邊", url: "https://gemini.google.com/share/98f3426e8454?authuser=3", category: "math", icon: "triangle" },
+
+            // AI模板與社會技巧
+            { id: "ai1", title: "AI一鍵抓注釋", url: "https://share.gemini.google/9ha7Z6TYwWGW", category: "ai", icon: "cpu" },
+            { id: "ai2", title: "社會技巧互動式網頁", url: "https://gemini.google.com/gem/1I-PwuefU-B4VRsuF7OwUucV07IdVyOru?usp=sharing", category: "ai", icon: "users" },
+
+            // 資源班國一國文
+            { id: "c1", title: "設問轉化修辭", url: "https://gemini.google.com/share/763cf45ba72a?authuser=3", category: "chinese", icon: "pen-tool" },
+            { id: "c2", title: "論語問答", url: "https://gemini.google.com/share/76833a8906bb?authuser=3", category: "chinese", icon: "book-open" },
+            { id: "c3", title: "濫竽充數課堂練習", url: "https://drive.google.com/file/d/1nkvhGiBvwerbrF1ESDSQwikdys6C-a7o/view?usp=classroom_web&authuser=3", category: "chinese", icon: "clipboard-list" },
+            { id: "c4", title: "夸父追日課堂練習", url: "https://drive.google.com/file/d/1xuOK2Ks2HJDjMd_stdKGWsmPtoEMNMiv/view?usp=classroom_web&authuser=3", category: "chinese", icon: "clipboard-list" },
+            { id: "c5", title: "三疊字", url: "https://gemini.google.com/share/988300e903d3?authuser=3", category: "chinese", icon: "case-sensitive" },
+            { id: "c6", title: "兒時記趣翻譯填空", url: "https://drive.google.com/file/d/10T53UkQ-cSPBHWRPVCDzXQ8M4ahYtEhW/view?usp=classroom_web&authuser=3", category: "chinese", icon: "pencil" },
+            { id: "c7", title: "近體詩問答1", url: "https://gemini.google.com/share/7b48145f247a?authuser=3", category: "chinese", icon: "scroll" },
+            { id: "c8", title: "近體詩問答2", url: "https://gemini.google.com/share/93930b94f0e9?authuser=3", category: "chinese", icon: "scroll" },
+            { id: "c9", title: "志怪小說自學", url: "https://gemini.google.com/share/b1cbc7a95466?authuser=3", category: "chinese", icon: "ghost" }
+        ];
+
+        let resources = [];
+        let starred = [];
+        let currentFilter = 'all';
+
+        // 系統色彩模式與本地儲存載入
+        window.onload = function() {
+            // 初始化深色模式
+            if (localStorage.getItem('dark-mode') === 'true' || 
+                (!('dark-mode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                updateThemeIcon(true);
+            } else {
+                document.documentElement.classList.remove('dark');
+                updateThemeIcon(false);
+            }
+
+            // 讀取/初始化資源與收藏列表
+            const localRes = localStorage.getItem('user-resources');
+            if (localRes) {
+                resources = JSON.parse(localRes);
+            } else {
+                resources = [...defaultResources];
+                localStorage.setItem('user-resources', JSON.stringify(resources));
+            }
+
+            const localStars = localStorage.getItem('user-starred');
+            if (localStars) {
+                starred = JSON.parse(localStars);
+            }
+
+            // 初始化網頁元件
+            updateStats();
+            renderResources();
+            
+            // 綁定深色模式切換事件
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+        }
+
+        // 分類對應中文名稱與顏色樣式
+        const categoryConfig = {
+            math: { label: "數學與生活管理", color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200/50" },
+            chinese: { label: "資源班國一國文", color: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-200/50" },
+            ai: { label: "AI與社會技巧", color: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-200/50" }
+        };
+
+        // 偵測是否為 Google Drive 或是 Gemini 來建立來源標籤
+        function getPlatformTag(url) {
+            if (url.includes('drive.google.com')) {
+                return { label: 'Google Drive', style: 'bg-blue-50 text-blue-600 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-900/50' };
+            } else if (url.includes('gemini.google.com') || url.includes('share.gemini.google')) {
+                return { label: 'Gemini AI', style: 'bg-indigo-50 text-indigo-600 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-900/50' };
+            }
+            return { label: '教學外部連結', style: 'bg-slate-50 text-slate-600 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700' };
+        }
+
+        // 切換深色模式
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('dark-mode', isDark);
+            updateThemeIcon(isDark);
+        }
+
+        function updateThemeIcon(isDark) {
+            const icon = document.getElementById('theme-icon');
+            if (isDark) {
+                icon.setAttribute('data-lucide', 'sun');
+            } else {
+                icon.setAttribute('data-lucide', 'moon');
+            }
+            lucide.createIcons();
+        }
+
+        // 更新數據看板
+        function updateStats() {
+            document.getElementById('stat-total').innerText = resources.length;
+            document.getElementById('stat-math').innerText = resources.filter(r => r.category === 'math').length;
+            document.getElementById('stat-chinese').innerText = resources.filter(r => r.category === 'chinese').length;
+            document.getElementById('stat-ai').innerText = resources.filter(r => r.category === 'ai').length;
+        }
+
+        // 分類過濾邏輯
+        function setCategoryFilter(category) {
+            currentFilter = category;
+            
+            // 更新 Button 狀態樣式
+            const buttons = document.querySelectorAll('[data-category-btn]');
+            buttons.forEach(btn => {
+                const btnType = btn.getAttribute('data-category-btn');
+                if (btnType === category) {
+                    btn.className = "category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-brand-500 text-white shadow-sm shadow-brand-500/10 flex items-center gap-1";
+                } else {
+                    btn.className = "category-btn px-4 py-2 text-sm font-medium rounded-xl transition bg-white dark:bg-gray-800 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-gray-700/80 hover:bg-slate-50 dark:hover:bg-gray-700 flex items-center gap-1";
+                }
+            });
+
+            renderResources();
+        }
+
+        // 搜尋邏輯
+        function filterResources() {
+            renderResources();
+        }
+
+        // 收藏/取消收藏功能
+        function toggleStar(id) {
+            const index = starred.indexOf(id);
+            if (index > -1) {
+                starred.splice(index, 1);
+                showToast("已從我的收藏移除", "info");
+            } else {
+                starred.push(id);
+                showToast("成功加入我的收藏！", "success");
+            }
+            localStorage.setItem('user-starred', JSON.stringify(starred));
+            renderResources();
+        }
+
+        // 刪除連結功能
+        function deleteResource(id) {
+            if (confirm("您確定要刪除此教學資源連結嗎？")) {
+                resources = resources.filter(r => r.id !== id);
+                starred = starred.filter(sid => sid !== id);
+                localStorage.setItem('user-resources', JSON.stringify(resources));
+                localStorage.setItem('user-starred', JSON.stringify(starred));
+                updateStats();
+                renderResources();
+                showToast("資源已成功刪除", "success");
+            }
+        }
+
+        // 一鍵複製連結功能
+        function copyToClipboard(url) {
+            const textarea = document.createElement("textarea");
+            textarea.value = url;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand("copy");
+                showToast("連結已複製，可立即分享給學生！", "success");
+            } catch (err) {
+                showToast("複製失敗，請手動複製", "error");
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // 渲染教學資源卡片
+        function renderResources() {
+            const grid = document.getElementById('resources-grid');
+            const noResults = document.getElementById('no-results');
+            const searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
+            
+            grid.innerHTML = '';
+            
+            // 過濾資源邏輯
+            let filtered = resources;
+            
+            if (currentFilter !== 'all') {
+                if (currentFilter === 'starred') {
+                    filtered = resources.filter(r => starred.includes(r.id));
+                } else {
+                    filtered = resources.filter(r => r.category === currentFilter);
+                }
+            }
+
+            if (searchQuery !== '') {
+                filtered = filtered.filter(r => 
+                    r.title.toLowerCase().includes(searchQuery) || 
+                    (categoryConfig[r.category] && categoryConfig[r.category].label.toLowerCase().includes(searchQuery))
+                );
+            }
+
+            if (filtered.length === 0) {
+                grid.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                noResults.classList.add('flex');
+                return;
+            } else {
+                grid.classList.remove('hidden');
+                noResults.classList.add('hidden');
+                noResults.classList.remove('flex');
+            }
+
+            // 跑迴圈產生卡片 HTML
+            filtered.forEach(res => {
+                const isStarred = starred.includes(res.id);
+                const starIconClass = isStarred ? "text-amber-500 fill-amber-500" : "text-slate-400 dark:text-gray-500 hover:text-amber-500";
+                const catInfo = categoryConfig[res.category] || { label: "其他資源", color: "bg-slate-100 text-slate-600 border-slate-200" };
+                const platInfo = getPlatformTag(res.url);
+                const cardIcon = res.icon || 'external-link';
+
+                const card = document.createElement('div');
+                card.className = "group relative bg-white dark:bg-gray-800 rounded-2xl border border-slate-100 dark:border-gray-800/80 p-5 shadow-sm hover:shadow-xl hover:border-brand-100 dark:hover:border-gray-700/80 transition-all duration-300 flex flex-col justify-between";
+                
+                card.innerHTML = `
+                    <div>
+                        <!-- 上排標籤與星號 -->
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="text-xs px-2.5 py-1 rounded-lg border font-medium ${catInfo.color}">
+                                ${catInfo.label}
+                            </span>
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="toggleStar('${res.id}')" class="p-1 hover:bg-slate-100 dark:hover:bg-gray-700 rounded-lg transition" title="收藏資源">
+                                    <i data-lucide="star" class="w-5 h-5 ${starIconClass}"></i>
+                                </button>
+                                <button onclick="deleteResource('${res.id}')" class="p-1 hover:bg-red-50 dark:hover:bg-red-950/30 text-slate-400 hover:text-red-500 rounded-lg transition" title="刪除">
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 資源主體 -->
+                        <div class="flex items-start gap-3 mt-2">
+                            <div class="p-2.5 bg-slate-50 dark:bg-gray-900 text-slate-600 dark:text-gray-300 rounded-xl border border-slate-100 dark:border-gray-700 group-hover:bg-brand-500 group-hover:text-white group-hover:border-transparent transition-colors duration-300">
+                                <i data-lucide="${cardIcon}" class="w-5 h-5"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-base font-bold text-slate-800 dark:text-white line-clamp-2 leading-snug group-hover:text-brand-500 dark:group-hover:text-brand-400 transition-colors">
+                                    ${res.title}
+                                </h4>
+                                <div class="flex items-center gap-1.5 mt-2">
+                                    <span class="inline-flex items-center gap-1 text-[10px] font-medium px-2 py-0.5 rounded border ${platInfo.style}">
+                                        ${platInfo.label}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 動作按鈕 -->
+                    <div class="grid grid-cols-2 gap-2 mt-6 pt-4 border-t border-slate-50 dark:border-gray-700/50">
+                        <button onclick="copyToClipboard('${res.url}')" class="flex items-center justify-center gap-1 px-3 py-2 text-xs font-medium text-slate-600 dark:text-gray-300 bg-slate-50 hover:bg-slate-100 dark:bg-gray-700/40 dark:hover:bg-gray-700 border border-slate-200 dark:border-gray-700 rounded-xl transition">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> 複製教材連結
+                        </button>
+                        <a href="${res.url}" target="_blank" class="flex items-center justify-center gap-1 px-3 py-2 text-xs font-medium text-white bg-brand-500 hover:bg-brand-600 rounded-xl shadow-sm transition">
+                            開啟學習 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // 重新初始化卡片中的 Lucide 圖示
+            lucide.createIcons();
+        }
+
+        // 彈出視窗開關
+        function openModal() {
+            const modal = document.getElementById('add-modal');
+            const container = document.getElementById('modal-container');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                container.classList.remove('scale-95', 'opacity-0');
+                container.classList.add('scale-100', 'opacity-100');
+            }, 50);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('add-modal');
+            const container = document.getElementById('modal-container');
+            container.classList.remove('scale-100', 'opacity-100');
+            container.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('resource-form').reset();
+            }, 200);
+        }
+
+        // 保存新自訂資源
+        function saveNewResource(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('res-title').value.trim();
+            const url = document.getElementById('res-url').value.trim();
+            const category = document.getElementById('res-category').value;
+            
+            // 自動分配一個關聯圖示
+            let icon = 'link';
+            if (category === 'math') icon = 'calculator';
+            if (category === 'chinese') icon = 'book';
+            if (category === 'ai') icon = 'cpu';
+
+            const newId = 'custom-' + Date.now();
+            const newRes = { id: newId, title, url, category, icon };
+
+            resources.unshift(newRes); // 放最前面
+            localStorage.setItem('user-resources', JSON.stringify(resources));
+            
+            updateStats();
+            renderResources();
+            closeModal();
+            showToast("成功新增自訂資源！", "success");
+        }
+
+        // Toast 訊息提示機制
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let bgClass = "bg-slate-900 text-white dark:bg-white dark:text-slate-900";
+            let iconName = "check-circle-2";
+            let iconColor = "text-emerald-400";
+
+            if (type === 'info') {
+                iconName = "info";
+                iconColor = "text-sky-400";
+            } else if (type === 'error') {
+                iconName = "alert-circle";
+                iconColor = "text-red-400";
+                bgClass = "bg-red-600 text-white";
+            }
+
+            toast.className = `flex items-center gap-3 px-4 py-3 rounded-xl shadow-xl transition-all duration-300 transform translate-y-2 opacity-0 text-sm max-w-sm pointer-events-auto ${bgClass}`;
+            toast.innerHTML = `
+                <i data-lucide="${iconName}" class="w-5 h-5 ${iconColor}"></i>
+                <span class="font-medium">${message}</span>
+            `;
+
+            container.appendChild(toast);
+            lucide.createIcons();
+
+            // 動態顯現
+            setTimeout(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+            }, 50);
+
+            // 自動銷毀
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'scale-95');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
